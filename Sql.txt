@@ -1,0 +1,85 @@
+
+CREATE DATABASE QuanLyDoAn;
+GO
+
+USE QuanLyDoAn;
+GO
+
+-- Bảng sinh viên
+CREATE TABLE SINHVIEN (
+    MaSV VARCHAR(20) PRIMARY KEY,
+    HoTen NVARCHAR(100) NOT NULL,
+    NgaySinh DATE NULL,
+    Email VARCHAR(100) NULL,
+    Lop NVARCHAR(50) NULL
+);
+GO
+
+-- Bảng đề tài
+CREATE TABLE DETAI (
+    MaDT VARCHAR(20) PRIMARY KEY,
+    TenDT NVARCHAR(200) NOT NULL,
+    MoTa NVARCHAR(MAX) NULL,
+    GiangVienHD NVARCHAR(100) NULL,
+    SoLuongToiDa INT NOT NULL DEFAULT 1,
+    TrangThai NVARCHAR(30) NOT NULL
+        DEFAULT N'DangMo',
+    CONSTRAINT CK_DETAI_SoLuong
+        CHECK (SoLuongToiDa > 0)
+);
+GO
+
+-- Bảng đăng ký
+CREATE TABLE DANGKY (
+    MaDK INT IDENTITY(1,1) PRIMARY KEY,
+    MaSV VARCHAR(20) NOT NULL,
+    MaDT VARCHAR(20) NOT NULL,
+    NgayDangKy DATETIME2 NOT NULL
+        DEFAULT SYSDATETIME(),
+    TrangThai NVARCHAR(30) NOT NULL
+        DEFAULT N'ChoDuyet',
+    Diem DECIMAL(4,2) NULL,
+
+    CONSTRAINT FK_DANGKY_SINHVIEN
+        FOREIGN KEY (MaSV)
+        REFERENCES SINHVIEN(MaSV),
+
+    CONSTRAINT FK_DANGKY_DETAI
+        FOREIGN KEY (MaDT)
+        REFERENCES DETAI(MaDT),
+
+    CONSTRAINT UQ_DANGKY_MASV
+        UNIQUE (MaSV),
+
+    CONSTRAINT CK_DANGKY_DIEM
+        CHECK (Diem IS NULL OR (Diem >= 0 AND Diem <= 10))
+);
+GO
+
+
+USE QuanLyDoAn;
+GO
+
+INSERT INTO SINHVIEN
+    (MaSV, HoTen, NgaySinh, Email, Lop)
+VALUES
+    ('SV001', N'Nguyen Van An', '2004-05-10',
+     'an@gmail.com', N'CNTT K47'),
+    ('SV002', N'Tran Thi Binh', '2004-08-15',
+     'binh@gmail.com', N'CNTT K47'),
+    ('SV003', N'Le Van Cuong', '2004-12-20',
+     'cuong@gmail.com', N'CNTT K47');
+
+INSERT INTO DETAI
+    (MaDT, TenDT, MoTa, GiangVienHD, SoLuongToiDa)
+VALUES
+    ('DT001', N'Website quan ly do an',
+     N'Xay dung bang ASP.NET Core',
+     N'Nguyen Van B', 3),
+    ('DT002', N'Ung dung quan ly sinh vien',
+     N'Xay dung ung dung quan ly sinh vien',
+     N'Tran Van C', 2);
+
+SELECT * FROM SINHVIEN;
+SELECT * FROM DETAI;
+SELECT * FROM DANGKY;
