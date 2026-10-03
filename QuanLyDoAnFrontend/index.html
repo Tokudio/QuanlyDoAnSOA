@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đồ án</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <h2>🎓 Quản lý đồ án</h2>
+            <nav>
+                <a class="active" href="index.html">👨‍🎓 Sinh viên</a>
+                <a href="#">📚 Đề tài</a>
+                <a href="#">📝 Đăng ký</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header>
+                <div>
+                    <h1>Quản lý sinh viên</h1>
+                    <p>Danh sách sinh viên trong hệ thống</p>
+                </div>
+                <button id="addBtn">+ Thêm sinh viên</button>
+            </header>
+
+            <section class="panel">
+                <div class="toolbar">
+                    <input id="searchInput"
+                           type="text"
+                           placeholder="Tìm theo mã hoặc tên sinh viên...">
+                    <button id="searchBtn">Tìm kiếm</button>
+                    <button id="reloadBtn" class="secondary">Tải lại</button>
+                </div>
+
+                <p id="message"></p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mã sinh viên</th>
+                                <th>Họ tên</th>
+                                <th>Ngày sinh</th>
+                                <th>Lớp</th>
+                                <th>Email</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTable">
+                            <tr>
+                                <td colspan="4">Đang tải dữ liệu...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <div id="studentModal" class="modal hidden">
+    <div class="modal-content">
+        <h2>Thêm sinh viên</h2>
+
+        <form id="studentForm">
+            <label for="maSV">Mã sinh viên</label>
+            <input id="maSV" type="text" required placeholder="VD: SV004">
+
+            <label for="hoTen">Họ và tên</label>
+            <input id="hoTen" type="text" required placeholder="Nhập họ tên">
+
+            <label for="lop">Lớp</label>
+            <input id="lop" type="text" required placeholder="VD: CNTT K47">
+            
+            <label for="ngaySinh">Ngày sinh</label>
+            <input
+                id="ngaySinh"
+                type="date"
+                required
+            />
+            <label for="email">Email</label>
+            <input id="email" type="email" required placeholder="example@gmail.com">
+
+            <div class="form-actions">
+                <button type="submit">Lưu sinh viên</button>
+                <button type="button" id="closeModal" class="secondary">
+                    Hủy
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
